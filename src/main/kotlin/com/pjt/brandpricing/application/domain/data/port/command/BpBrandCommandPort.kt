@@ -6,4 +6,5 @@ import com.pjt.brandpricing.support.EntityId
 interface BpBrandCommandPort {
     fun save(bpBrand: BpBrand): BpBrand
     fun findByBrandIdOrThrow(brandId: EntityId): BpBrand
+    fun existsByBrandId(brandId: EntityId): Boolean
 }

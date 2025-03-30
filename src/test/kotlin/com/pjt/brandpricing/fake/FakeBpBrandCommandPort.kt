@@ -19,4 +19,8 @@ class FakeBpBrandCommandPort : BpBrandCommandPort {
         return savedBrands.find { it.brandId == brandId }
             ?: throw ApplicationException.ofNotFound(ErrorCode.NOT_FOUND_BRAND)
     }
+
+    override fun existsByBrandId(brandId: EntityId): Boolean {
+        return savedBrands.any { it.brandId == brandId }
+    }
 }

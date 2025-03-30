@@ -6,6 +6,8 @@ import com.pjt.brandpricing.application.domain.data.`in`.CreateProductCommand
 import com.pjt.brandpricing.application.domain.data.`in`.UpdateProductCommand
 import com.pjt.brandpricing.application.domain.enums.ProductStatus
 import com.pjt.brandpricing.application.service.command.BpProductService
+import com.pjt.brandpricing.fake.FakeBpBrandCommandPort
+import com.pjt.brandpricing.fake.FakeBpCategoryCommandPort
 import com.pjt.brandpricing.fake.FakeBpProductCommandPort
 import com.pjt.brandpricing.fake.FakeBpProductMappingPort
 import com.pjt.brandpricing.fake.StubApplicationEventPublisher
@@ -15,10 +17,18 @@ import org.junit.jupiter.api.Test
 import org.springframework.context.annotation.Description
 
 class BpProductServiceTest {
+    private val fakeBpBrandCommandPort = FakeBpBrandCommandPort()
+    private val fakeBpCategoryCommandPort = FakeBpCategoryCommandPort()
     private val fakeProductCommandPort = FakeBpProductCommandPort()
     private val fakeProductMappingPort = FakeBpProductMappingPort()
     private val eventPublisher = StubApplicationEventPublisher()
-    private val bpProductService = BpProductService(fakeProductCommandPort, fakeProductMappingPort, eventPublisher)
+    private val bpProductService = BpProductService(
+        fakeBpBrandCommandPort,
+        fakeBpCategoryCommandPort,
+        fakeProductCommandPort,
+        fakeProductMappingPort,
+        eventPublisher
+    )
 
     companion object {
         private const val PRODUCT_NAME = "testProductName"
