@@ -10,7 +10,7 @@ import com.pjt.brandpricing.support.EntityId
 import org.springframework.stereotype.Component
 
 @Component
-class BpBpProductCommandAdapter(
+class BpProductCommandAdapter(
     private val productRepository: BpProductRepository,
 ) : BpProductCommandPort {
 

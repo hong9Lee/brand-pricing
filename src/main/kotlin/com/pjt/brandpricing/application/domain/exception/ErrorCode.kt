@@ -12,6 +12,7 @@ enum class ErrorCode(
     NOT_FOUND_PRODUCT("NOT_FOUND_PRODUCT", "존재하지 않는 상품 입니다."),
 
     /** CATEGORY */
+    NOT_FOUND_CATEGORY("NOT_FOUND_CATEGORY", "존재하지 않는 카테고리 입니다."),
     NOT_FOUND_CATEGORY_PRODUCT("NOT_FOUND_CATEGORY_PRODUCT", "카테고리에 속한 상품이 없습니다."),
 
     /** PRODUCT_MAPPING */
@@ -19,4 +20,5 @@ enum class ErrorCode(
 
     /** SUMMARY */
     NOT_FOUND_SUMMARY("NOT_FOUND_SUMMARY", "상품 가격 통계 데이터가 존재하지 않습니다.");
+
 }

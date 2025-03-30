@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface BpBrandRepository : JpaRepository<BpBrandEntity, Long> {
     fun findByBrandId(brandId: EntityId): BpBrandEntity?
+    fun existsByBrandId(brandId: EntityId): Boolean
 }

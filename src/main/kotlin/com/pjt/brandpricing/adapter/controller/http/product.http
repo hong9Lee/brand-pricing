@@ -1,0 +1,19 @@
+### 1. 상품 생성
+POST http://localhost:8080/api/bp/v1/product
+Content-Type: application/json
+
+{
+  "productName": "A_상의_추가",
+  "price": 2500,
+  "brandId": "94836de5-35cd-4dc0-b39a-63d427e33831",
+  "categoryId": "4cafbc7c-311a-4dc8-9d93-8b0c180d7e95"
+}
+
+### 2. 상품 업데이트
+PATCH http://localhost:8080/api/bp/v1/product
+Content-Type: application/json
+
+{
+  "productId": "80ad25a2-2ef2-445f-bce8-5867a2c4ea86",
+  "price": "100000"
+}

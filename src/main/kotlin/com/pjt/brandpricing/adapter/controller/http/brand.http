@@ -1,0 +1,17 @@
+### 1. 브랜드 생성
+POST http://localhost:8080/api/bp/v1/brand
+Content-Type: application/json
+
+{
+  "brandName": "test1"
+}
+
+### 2. 브랜드 업데이트
+PATCH http://localhost:8080/api/bp/v1/brand
+Content-Type: application/json
+
+{
+  "brandId": "d6ccfc35-fe85-47a7-89ba-d4be0259d7c0",
+  "brandName": "update_brand_name",
+  "brandStatus": "ACTIVE"
+}
