@@ -1,6 +1,19 @@
 # 🏷️ 최저·최고가 집계 서비스
 브랜드별, 카테고리별 상품 가격 정보를 집계하여 **최저가 · 최고가** 정보를 효율적으로 제공하는 서비스입니다.
 
+## 🧩 기술 스택
+- Kotlin 1.9.25  
+- Java 21  
+- Spring Boot 3.4.4  
+- Spring Data JPA  
+- QueryDSL 5.0.0  
+- Flyway 10.4.1  
+- H2 In-Memory Database  
+- Kotlin Logging 5.1.0  
+- Gradle  
+- JUnit5  
+
+
 ## 🚀 실행 방법
 > 프로젝트 클론
 ```
