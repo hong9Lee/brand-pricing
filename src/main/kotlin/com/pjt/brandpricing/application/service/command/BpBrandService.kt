@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class BrandService(
+class BpBrandService(
     private val bpBrandCommandPort: BpBrandCommandPort,
 ) {
 

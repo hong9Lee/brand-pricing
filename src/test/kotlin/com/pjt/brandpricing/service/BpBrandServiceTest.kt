@@ -3,15 +3,15 @@ package com.pjt.brandpricing.service
 import com.pjt.brandpricing.application.domain.BpBrand
 import com.pjt.brandpricing.application.domain.data.`in`.UpdateBrandCommand
 import com.pjt.brandpricing.application.domain.enums.BrandStatus
-import com.pjt.brandpricing.application.service.command.BrandService
+import com.pjt.brandpricing.application.service.command.BpBrandService
 import com.pjt.brandpricing.fake.FakeBpBrandCommandPort
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.context.annotation.Description
 
-class BrandServiceTest {
+class BpBrandServiceTest {
     private val fakeBrandCommandPort = FakeBpBrandCommandPort()
-    private val brandService = BrandService(fakeBrandCommandPort)
+    private val bpBrandService = BpBrandService(fakeBrandCommandPort)
 
     companion object {
         private const val BRAND_NAME = "testBrandName"
@@ -22,7 +22,7 @@ class BrandServiceTest {
     fun createBrand() {
         // given
         // when
-        val result = brandService.create(BRAND_NAME)
+        val result = bpBrandService.create(BRAND_NAME)
 
         // then
         assertThat(result.brandName).isEqualTo(BRAND_NAME)
@@ -42,7 +42,7 @@ class BrandServiceTest {
         )
 
         // when
-        brandService.update(updateCommand)
+        bpBrandService.update(updateCommand)
 
         // then
         val updated = fakeBrandCommandPort.findByBrandIdOrThrow(brand.brandId)
@@ -62,7 +62,7 @@ class BrandServiceTest {
         )
 
         // when
-        brandService.update(deleteCommand)
+        bpBrandService.update(deleteCommand)
 
         // then
         val deleted = fakeBrandCommandPort.findByBrandIdOrThrow(brand.brandId)
