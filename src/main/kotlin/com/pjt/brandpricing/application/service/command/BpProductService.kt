@@ -8,7 +8,7 @@ import com.pjt.brandpricing.application.domain.data.out.CreateProductResult
 import com.pjt.brandpricing.application.domain.data.out.UpdateProductResult
 import com.pjt.brandpricing.application.domain.data.port.command.BpProductCommandPort
 import com.pjt.brandpricing.application.domain.data.port.command.BpProductMappingPort
-import com.pjt.brandpricing.application.domain.event.BpProductCreateSummaryEvent
+import com.pjt.brandpricing.application.domain.event.BpProductSummaryEvent
 import com.pjt.brandpricing.support.EntityId
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
@@ -69,7 +69,7 @@ class BpProductService(
 
     private fun publishProductCreateSummaryEvent(bpProduct: BpProduct) {
         eventPublisher.publishEvent(
-            BpProductCreateSummaryEvent(productId = bpProduct.productId)
+            BpProductSummaryEvent(productId = bpProduct.productId)
         )
     }
 }

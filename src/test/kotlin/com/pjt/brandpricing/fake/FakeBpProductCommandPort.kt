@@ -5,7 +5,7 @@ import com.pjt.brandpricing.application.domain.data.port.command.BpProductComman
 import com.pjt.brandpricing.support.EntityId
 
 class FakeBpProductCommandPort : BpProductCommandPort {
-    private val savedProducts = mutableListOf<BpProduct>()
+    val savedProducts = mutableListOf<BpProduct>()
 
     override fun save(product: BpProduct): BpProduct {
         savedProducts.removeIf { it.productId == product.productId }
