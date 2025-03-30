@@ -12,5 +12,9 @@ class BpProducts(
         val maxPrice = products.maxOfOrNull { it.price } ?: return emptyList()
         return products.filter { it.price.isEqual(maxPrice) }
     }
+
+    fun isEmpty(): Boolean {
+        return products.isEmpty()
+    }
 }
 

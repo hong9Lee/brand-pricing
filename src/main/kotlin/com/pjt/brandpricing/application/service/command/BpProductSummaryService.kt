@@ -21,6 +21,12 @@ class BpProductSummaryService(
         log.info { "Recalculating bpProductSummary brandId: $brandId categoryId: $categoryId" }
 
         val products = bpProductQueryPort.findAllByBrandIdAndCategoryId(brandId, categoryId)
+        if (products.isEmpty()) {
+            log.info { "상품 없음 → summary 삭제 brandId: $brandId, categoryId: $categoryId" }
+            bpBrandCategoryPriceSummaryCommandPort.deleteByBrandIdAndCategoryId(brandId, categoryId)
+            return
+        }
+
         val minProducts = products.findMinPriceProducts()
         val maxProducts = products.findMaxPriceProducts()
 

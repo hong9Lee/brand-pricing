@@ -18,5 +18,11 @@ class FakeBpProductMappingPort : BpProductMappingPort {
         return savedMappings.find { it.productId == productId }
             ?: throw ApplicationException.ofNotFound(ErrorCode.NOT_FOUND_PRODUCT_MAPPING)
     }
+
+    override fun updateActiveByProductId(productId: EntityId, isActive: Boolean) {
+        val mapping = savedMappings.find { it.productId == productId }
+            ?: throw ApplicationException.ofNotFound(ErrorCode.NOT_FOUND_PRODUCT_MAPPING)
+        mapping.isActive = isActive
+    }
 }
 

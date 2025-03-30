@@ -29,9 +29,9 @@ class BpCategoryEntity(
     )
 
     companion object {
-        fun of(domain: BpCategory): BpCategoryEntity = BpCategoryEntity(
-            categoryId = domain.categoryId,
-            categoryName = domain.categoryName
-        ).apply { this.seq = domain.seq }
+        fun of(bpCategory: BpCategory): BpCategoryEntity = BpCategoryEntity(
+            categoryId = bpCategory.categoryId,
+            categoryName = bpCategory.categoryName
+        ).apply { this.seq = bpCategory.seq }
     }
 }

@@ -6,4 +6,5 @@ import com.pjt.brandpricing.support.EntityId
 interface BpProductMappingPort {
     fun save(mapping: BpProductMapping): BpProductMapping
     fun findByProductId(productId: EntityId): BpProductMapping
+    fun updateActiveByProductId(productId: EntityId, isActive: Boolean)
 }

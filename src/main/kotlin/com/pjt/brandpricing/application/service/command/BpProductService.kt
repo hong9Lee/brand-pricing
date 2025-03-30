@@ -10,6 +10,7 @@ import com.pjt.brandpricing.application.domain.data.port.command.BpBrandCommandP
 import com.pjt.brandpricing.application.domain.data.port.command.BpCategoryCommandPort
 import com.pjt.brandpricing.application.domain.data.port.command.BpProductCommandPort
 import com.pjt.brandpricing.application.domain.data.port.command.BpProductMappingPort
+import com.pjt.brandpricing.application.domain.enums.ProductStatus
 import com.pjt.brandpricing.application.domain.event.BpProductSummaryEvent
 import com.pjt.brandpricing.application.domain.exception.ApplicationException
 import com.pjt.brandpricing.application.domain.exception.ErrorCode
@@ -73,15 +74,25 @@ class BpProductService(
     fun update(command: UpdateProductCommand): UpdateProductResult {
         val product = bpProductCommandPort.getByProductIdOrThrow(command.productId)
 
-        product.update(
-            productName = command.productName,
-            price = command.price,
-            productStatus = command.productStatus
-        )
+        /** 상품 업데이트 가능 여부 검사 */
+        product.validateUpdatable(command.productName, command.price, command.productStatus)
+        handleProductMappingStatus(product, command.productStatus)
+        val isSummaryUpdate = product.applyUpdate(command.productName, command.price, command.productStatus)
 
-        val savedBpProduct = bpProductCommandPort.save(product)
-        publishProductCreateSummaryEvent(savedBpProduct)
-        return UpdateProductResult.of(savedBpProduct)
+        val savedProduct = bpProductCommandPort.save(product)
+        if (isSummaryUpdate) {
+            publishProductCreateSummaryEvent(savedProduct)
+        }
+        return UpdateProductResult.of(savedProduct)
+    }
+
+    private fun handleProductMappingStatus(product: BpProduct, newStatus: ProductStatus?) {
+        if (newStatus == null) return
+
+        when {
+            product.isDisplayOff(newStatus) -> bpProductMappingPort.updateActiveByProductId(product.productId, false)
+            product.isDisplayOn(newStatus) -> bpProductMappingPort.updateActiveByProductId(product.productId, true)
+        }
     }
 
     private fun publishProductCreateSummaryEvent(bpProduct: BpProduct) {

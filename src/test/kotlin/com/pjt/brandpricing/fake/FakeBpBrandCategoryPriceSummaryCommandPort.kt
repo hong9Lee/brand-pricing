@@ -20,4 +20,8 @@ class FakeBpBrandCategoryPriceSummaryCommandPort : BpBrandCategoryPriceSummaryCo
     fun getByBrandIdAndCategoryId(brandId: EntityId, categoryId: EntityId): BpBrandCategoryPriceSummary? {
         return summaryMap[Pair(brandId, categoryId)]
     }
+
+    override fun deleteByBrandIdAndCategoryId(brandId: EntityId, categoryId: EntityId) {
+        summaryMap.remove(Pair(brandId, categoryId))
+    }
 }

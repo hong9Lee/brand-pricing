@@ -6,4 +6,5 @@ import com.pjt.brandpricing.support.EntityId
 interface BpBrandCategoryPriceSummaryCommandPort {
     fun save(brandCategoryPriceSummary: BpBrandCategoryPriceSummary): BpBrandCategoryPriceSummary
     fun findByBrandIdAndCategoryId(brandId: EntityId, categoryId: EntityId): BpBrandCategoryPriceSummary?
+    fun deleteByBrandIdAndCategoryId(brandId: EntityId, categoryId: EntityId)
 }

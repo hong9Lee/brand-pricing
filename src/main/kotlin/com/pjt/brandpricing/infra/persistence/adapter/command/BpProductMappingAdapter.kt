@@ -22,4 +22,8 @@ class BpProductMappingAdapter(
         return productMappingRepository.findByProductId(productId)?.toDomain()
             ?: throw ApplicationException.ofNotFound(ErrorCode.NOT_FOUND_PRODUCT)
     }
+
+    override fun updateActiveByProductId(productId: EntityId, isActive: Boolean) {
+        productMappingRepository.updateIsActiveByProductId(productId, isActive)
+    }
 }

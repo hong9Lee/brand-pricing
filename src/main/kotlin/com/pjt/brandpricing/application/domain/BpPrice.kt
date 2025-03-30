@@ -56,6 +56,6 @@ data class BpPrice(
     }
 
     fun isEqual(bpPrice: BpPrice): Boolean {
-        return bpPrice.value == this.value
+        return bpPrice.value.compareTo(this.value) == 0
     }
 }

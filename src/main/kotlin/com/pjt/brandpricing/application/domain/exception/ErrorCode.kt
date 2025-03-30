@@ -10,6 +10,7 @@ enum class ErrorCode(
 
     /** PRODUCT */
     NOT_FOUND_PRODUCT("NOT_FOUND_PRODUCT", "존재하지 않는 상품 입니다."),
+    INVALID_UPDATE_REQUEST("INVALID_UPDATE_REQUEST", "업데이트 하려는 상품 정보가 동일합니다."),
 
     /** CATEGORY */
     NOT_FOUND_CATEGORY("NOT_FOUND_CATEGORY", "존재하지 않는 카테고리 입니다."),

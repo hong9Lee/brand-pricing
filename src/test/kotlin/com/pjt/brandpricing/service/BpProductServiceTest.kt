@@ -2,6 +2,7 @@ package com.pjt.brandpricing.service
 
 import com.pjt.brandpricing.application.domain.BpPrice
 import com.pjt.brandpricing.application.domain.BpProduct
+import com.pjt.brandpricing.application.domain.BpProductMapping
 import com.pjt.brandpricing.application.domain.data.`in`.CreateProductCommand
 import com.pjt.brandpricing.application.domain.data.`in`.UpdateProductCommand
 import com.pjt.brandpricing.application.domain.enums.ProductStatus
@@ -13,6 +14,7 @@ import com.pjt.brandpricing.fake.FakeBpProductMappingPort
 import com.pjt.brandpricing.fake.StubApplicationEventPublisher
 import com.pjt.brandpricing.support.EntityId
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.context.annotation.Description
 
@@ -29,10 +31,20 @@ class BpProductServiceTest {
         fakeProductMappingPort,
         eventPublisher
     )
+    private lateinit var brandId: EntityId
+    private lateinit var categoryId: EntityId
 
     companion object {
         private const val PRODUCT_NAME = "testProductName"
         private const val PRODUCT_PRICE = 12000L
+    }
+
+    @BeforeEach
+    fun setUp() {
+        brandId = EntityId()
+        categoryId = EntityId()
+        fakeBpBrandCommandPort.save(brandId)
+        fakeBpCategoryCommandPort.save(categoryId)
     }
 
     @Test
@@ -93,16 +105,46 @@ class BpProductServiceTest {
         assertThat(deleted.productStatus).isEqualTo(ProductStatus.DELETED)
     }
 
+    @Test
+    @Description("상품을 삭제하면 매핑 정보도 비활성화 할 수 있다.")
+    fun deleteProductAndDeactivateMapping() {
+        // given
+        val product = createAndSaveProduct(PRODUCT_NAME, PRODUCT_PRICE)
+
+        val deleteCommand = UpdateProductCommand(
+            productId = product.productId,
+            productName = product.productName,
+            price = product.price,
+            productStatus = ProductStatus.DELETED,
+        )
+
+        // when
+        bpProductService.update(deleteCommand)
+
+        // then
+        val mapping = fakeProductMappingPort.findByProductId(product.productId)
+        assertThat(mapping.isActive).isFalse()
+    }
+
+
     private fun createProductCommand(name: String, price: Long) = CreateProductCommand(
         productName = name,
         price = BpPrice(price),
-        brandId = EntityId(),
-        categoryId = EntityId()
+        brandId = brandId,
+        categoryId = categoryId
     )
 
     private fun createAndSaveProduct(name: String, price: Long): BpProduct {
         val product = BpProduct.create(name, BpPrice(price))
         fakeProductCommandPort.save(product)
+
+        val mapping = BpProductMapping(
+            productId = product.productId,
+            brandId = brandId,
+            categoryId = categoryId,
+            isActive = true
+        )
+        fakeProductMappingPort.save(mapping)
         return product
     }
 }

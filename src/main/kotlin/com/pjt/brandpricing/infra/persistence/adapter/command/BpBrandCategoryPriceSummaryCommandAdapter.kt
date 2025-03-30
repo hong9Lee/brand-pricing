@@ -20,4 +20,7 @@ class BpBrandCategoryPriceSummaryCommandAdapter(
         return bpBrandCategoryPriceSummaryRepository.findByBrandIdAndCategoryId(brandId, categoryId)?.toDomain()
     }
 
+    override fun deleteByBrandIdAndCategoryId(brandId: EntityId, categoryId: EntityId) {
+        bpBrandCategoryPriceSummaryRepository.deleteByBrandIdAndCategoryId(brandId, categoryId)
+    }
 }

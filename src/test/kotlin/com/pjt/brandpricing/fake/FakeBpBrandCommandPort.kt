@@ -2,6 +2,7 @@ package com.pjt.brandpricing.fake
 
 import com.pjt.brandpricing.application.domain.BpBrand
 import com.pjt.brandpricing.application.domain.data.port.command.BpBrandCommandPort
+import com.pjt.brandpricing.application.domain.enums.BrandStatus
 import com.pjt.brandpricing.application.domain.exception.ApplicationException
 import com.pjt.brandpricing.application.domain.exception.ErrorCode
 import com.pjt.brandpricing.support.EntityId
@@ -22,5 +23,15 @@ class FakeBpBrandCommandPort : BpBrandCommandPort {
 
     override fun existsByBrandId(brandId: EntityId): Boolean {
         return savedBrands.any { it.brandId == brandId }
+    }
+
+    fun save(brandId: EntityId) {
+        savedBrands.add(
+            BpBrand(
+                brandId = brandId,
+                brandName = "testBrand",
+                brandStatus = BrandStatus.ACTIVE
+            )
+        )
     }
 }
